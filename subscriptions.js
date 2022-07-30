@@ -20,7 +20,7 @@ Constellation.registerCallbacks({
 var SubscriptionsDict = new ReactiveDict('constellation-subscriptions');
 
 var setSubscriptions = function () {
-  var subscriptions  = Meteor.default_connection._subscriptions;
+  var subscriptions  = Meteor.connection._subscriptions;
   var subKeys        = Object.keys(subscriptions);
   SubscriptionsDict.set("Constellation_subscriptions", subKeys);
 }
@@ -42,11 +42,11 @@ Template.Constellation_subscriptions_main.helpers({
 
   },
   name: function () {
-    var subName = Meteor.default_connection._subscriptions[this] && Meteor.default_connection._subscriptions[this].name;
+    var subName = Meteor.connection._subscriptions[this] && Meteor.connection._subscriptions[this].name;
     return subName;
   },
   params: function () {
-    var p = Meteor.default_connection._subscriptions[this] && Meteor.default_connection._subscriptions[this].params
+    var p = Meteor.connection._subscriptions[this] && Meteor.connection._subscriptions[this].params
 
     if (p && p.length > 0) {
       return p;
@@ -59,6 +59,6 @@ Template.Constellation_subscriptions_main.helpers({
 
 Template.Constellation_subscriptions_main.events({
   'click .Constellation_subscription_toggle': function () {
-    Meteor.default_connection._subscriptions[this].stop()
+    Meteor.connection._subscriptions[this].stop()
   }
 });
